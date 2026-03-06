@@ -71,7 +71,7 @@ function populateCard(d) {
   document.getElementById('gc-relation').textContent = d.relation || '';
   document.getElementById('gc-name').textContent = d.name || '';
   document.getElementById('gc-message').textContent = d.message || '';
-  document.getElementById('gc-signature').textContent = '— ' + (d.signature || 'Với tất cả yêu thương 🌸');
+  document.getElementById('gc-signature').textContent = '— ' + (d.signature || 'Với tất cả yêu thương 🌸') + ' —';
 
   // Apply colour theme
   const theme = d.color || 'pink';
