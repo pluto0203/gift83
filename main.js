@@ -1,142 +1,178 @@
 /* =====================================================
-   main.js — Women's Day 8/3 interactive effects
+   main.js — Gift 8/3 — Personal Card Logic
 ===================================================== */
 
-// ─── Falling Petals (Canvas) ─────────────────────────
-const canvas = document.getElementById('petals');
-const ctx    = canvas.getContext('2d');
+// ─── 1. Read URL param (?to=key) ─────────────────────
+const params = new URLSearchParams(window.location.search);
+const key = (params.get('to') || DEFAULT_KEY).toLowerCase();
+const data = MESSAGES[key];
+
+// ─── 2. Falling petals (canvas) ──────────────────────
+const petalCanvas = document.getElementById('petals');
+const pCtx = petalCanvas.getContext('2d');
 
 let W, H, petals = [];
 
-const SHAPES  = ['🌸', '🌷', '🌹', '❤️', '✿', '·'];
-const COLORS  = ['#f472b6','#e879f9','#c084fc','#fb7185','#f9a8d4'];
+const EMOJIS = ['🌸', '🌷', '🌹', '🌺', '✿', '·', '❤️'];
+const COLORS = ['#f472b6', '#e879f9', '#c084fc', '#fb7185', '#f9a8d4', '#fda4af'];
 
 function resize() {
-  W = canvas.width  = window.innerWidth;
-  H = canvas.height = window.innerHeight;
+  W = petalCanvas.width = window.innerWidth;
+  H = petalCanvas.height = window.innerHeight;
 }
-
-function randomPetal() {
-  const isEmoji = Math.random() > 0.5;
+function mkPetal() {
+  const useEmoji = Math.random() > .45;
   return {
-    x    : Math.random() * W,
-    y    : -20,
-    r    : Math.random() * 10 + 8,
-    speed: Math.random() * 1.2 + 0.4,
-    drift: (Math.random() - 0.5) * 0.6,
-    rot  : Math.random() * Math.PI * 2,
-    rotS : (Math.random() - 0.5) * 0.04,
-    alpha: Math.random() * 0.4 + 0.25,
-    shape: isEmoji ? SHAPES[Math.floor(Math.random() * 4)] : null,
-    color: COLORS[Math.floor(Math.random() * COLORS.length)],
-    size : Math.random() * 14 + 12,
+    x: Math.random() * W,
+    y: -(Math.random() * 40),
+    spd: Math.random() * .9 + .35,
+    drift: (Math.random() - .5) * .5,
+    rot: Math.random() * Math.PI * 2,
+    rotS: (Math.random() - .5) * .03,
+    alpha: Math.random() * .35 + .2,
+    emoji: useEmoji ? EMOJIS[~~(Math.random() * EMOJIS.length)] : null,
+    color: COLORS[~~(Math.random() * COLORS.length)],
+    r: Math.random() * 5 + 3,
+    size: Math.random() * 12 + 11,
   };
 }
-
 function initPetals() {
-  petals = [];
-  for (let i = 0; i < 55; i++) {
-    const p = randomPetal();
-    p.y = Math.random() * H; // pre-scatter vertically
-    petals.push(p);
-  }
+  petals = Array.from({ length: 50 }, () => { const p = mkPetal(); p.y = Math.random() * H; return p; });
 }
-
 function animatePetals() {
-  ctx.clearRect(0, 0, W, H);
-
+  pCtx.clearRect(0, 0, W, H);
   for (const p of petals) {
-    p.y   += p.speed;
-    p.x   += p.drift;
-    p.rot += p.rotS;
-
-    if (p.y > H + 30) Object.assign(p, randomPetal());
-
-    ctx.save();
-    ctx.globalAlpha = p.alpha;
-    ctx.translate(p.x, p.y);
-    ctx.rotate(p.rot);
-
-    if (p.shape) {
-      // emoji petal
-      ctx.font = `${p.size}px serif`;
-      ctx.fillText(p.shape, -p.size / 2, p.size / 2);
+    p.y += p.spd; p.x += p.drift; p.rot += p.rotS;
+    if (p.y > H + 30) Object.assign(p, mkPetal());
+    pCtx.save();
+    pCtx.globalAlpha = p.alpha;
+    pCtx.translate(p.x, p.y);
+    pCtx.rotate(p.rot);
+    if (p.emoji) {
+      pCtx.font = `${p.size}px serif`;
+      pCtx.fillText(p.emoji, -p.size / 2, p.size / 2);
     } else {
-      // small circle dot
-      ctx.beginPath();
-      ctx.arc(0, 0, p.r * 0.35, 0, Math.PI * 2);
-      ctx.fillStyle = p.color;
-      ctx.fill();
+      pCtx.beginPath();
+      pCtx.arc(0, 0, p.r, 0, Math.PI * 2);
+      pCtx.fillStyle = p.color;
+      pCtx.fill();
     }
-    ctx.restore();
+    pCtx.restore();
   }
-
   requestAnimationFrame(animatePetals);
 }
-
 window.addEventListener('resize', () => { resize(); initPetals(); });
-resize();
-initPetals();
-animatePetals();
+resize(); initPetals(); animatePetals();
 
 
-// ─── Intersection Observer — fade-in cards ───────────
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.style.animationDelay = '0s';
-      e.target.classList.add('in-view');
-      observer.unobserve(e.target);
+// ─── 3. Populate card (or show not-found) ─────────────
+function populateCard(d) {
+  document.getElementById('gc-icon').textContent = d.emoji || '🌸';
+  document.getElementById('gc-relation').textContent = d.relation || '';
+  document.getElementById('gc-name').textContent = d.name || '';
+  document.getElementById('gc-message').textContent = d.message || '';
+  document.getElementById('gc-signature').textContent = '— ' + (d.signature || 'Với tất cả yêu thương 🌸');
+
+  // Apply colour theme
+  const theme = d.color || 'pink';
+  document.body.classList.add(`theme-${theme}`);
+
+  // Glow colour
+  const glowColors = {
+    pink: 'rgba(244,114,182,.3)',
+    purple: 'rgba(168,85,247,.3)',
+    red: 'rgba(244,63,94,.3)',
+    gold: 'rgba(245,158,11,.25)',
+  };
+  document.getElementById('card-glow').style.background =
+    `radial-gradient(ellipse 70% 70% at 50% 40%, ${glowColors[theme] || glowColors.pink} 0%, transparent 70%)`;
+
+  // Page title
+  document.title = `🌸 Chúc mừng ngày 8/3 — ${d.name}`;
+}
+
+if (data) {
+  populateCard(data);
+} else {
+  // Key not found → show not-found screen immediately, skip envelope
+  document.getElementById('envelope-screen').classList.add('closing');
+  document.getElementById('not-found').classList.remove('hidden');
+}
+
+
+// ─── 4. Envelope click → open → show card ────────────
+const envelopeScreen = document.getElementById('envelope-screen');
+const envelopeEl = document.getElementById('envelope');
+const cardScreen = document.getElementById('card-screen');
+
+envelopeEl.addEventListener('click', () => {
+  if (!data) return; // safety
+
+  // Flap opens
+  envelopeEl.classList.add('open');
+
+  // Small delay → close envelope screen → reveal card
+  setTimeout(() => {
+    envelopeScreen.classList.add('closing');
+    setTimeout(() => {
+      envelopeScreen.style.display = 'none';
+      document.body.style.overflow = 'auto'; // allow scroll on card
+      cardScreen.classList.remove('hidden');
+      cardScreen.style.opacity = '0';
+      requestAnimationFrame(() => {
+        cardScreen.style.transition = 'opacity .6s ease';
+        cardScreen.style.opacity = '1';
+      });
+      // Confetti party!
+      launchConfetti();
+    }, 600);
+  }, 500);
+});
+
+
+// ─── 5. Confetti 🎉 ──────────────────────────────────
+function launchConfetti() {
+  const cc = document.getElementById('confetti');
+  const cCtx = cc.getContext('2d');
+  cc.width = window.innerWidth;
+  cc.height = window.innerHeight;
+
+  const accents = {
+    pink: ['#f472b6', '#fbcfe8', '#f9a8d4', '#ffffff'],
+    purple: ['#a855f7', '#d8b4fe', '#e879f9', '#ffffff'],
+    red: ['#f43f5e', '#fda4af', '#fb7185', '#ffffff'],
+    gold: ['#f59e0b', '#fcd34d', '#fbbf24', '#ffffff'],
+  };
+  const palette = accents[data?.color || 'pink'];
+
+  const pieces = Array.from({ length: 120 }, () => ({
+    x: Math.random() * cc.width,
+    y: Math.random() * cc.height - cc.height,
+    w: Math.random() * 8 + 4,
+    h: Math.random() * 4 + 2,
+    rot: Math.random() * Math.PI,
+    rotS: (Math.random() - .5) * .15,
+    spd: Math.random() * 3 + 2,
+    col: palette[~~(Math.random() * palette.length)],
+  }));
+
+  let frames = 0;
+  function drawConfetti() {
+    cCtx.clearRect(0, 0, cc.width, cc.height);
+    for (const p of pieces) {
+      p.y += p.spd;
+      p.rot += p.rotS;
+      cCtx.save();
+      cCtx.globalAlpha = Math.max(0, 1 - frames / 160);
+      cCtx.translate(p.x, p.y);
+      cCtx.rotate(p.rot);
+      cCtx.fillStyle = p.col;
+      cCtx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      cCtx.restore();
     }
-  });
-}, { threshold: 0.15 });
-
-document.querySelectorAll('.card').forEach(c => observer.observe(c));
-
-
-// ─── Personalised Message Generator ──────────────────
-const generateBtn = document.getElementById('generate-btn');
-const previewBox  = document.getElementById('preview-box');
-const previewName = document.getElementById('preview-name');
-const previewText = document.getElementById('preview-text');
-const copyBtn     = document.getElementById('copy-btn');
-const toInput     = document.getElementById('to-name');
-const msgInput    = document.getElementById('custom-msg');
-
-generateBtn.addEventListener('click', () => {
-  const name = toInput.value.trim() || 'bạn thân yêu';
-  const msg  = msgInput.value.trim() ||
-    `Nhân ngày Quốc tế Phụ nữ 8/3, mình gửi đến ${name} những lời chúc chân thành nhất.\n\nChúc ${name} luôn tươi cười, hạnh phúc và rực rỡ như những bông hoa mùa xuân! 🌸`;
-
-  previewName.textContent = name;
-  previewText.textContent = msg;
-  previewBox.classList.remove('hidden');
-  previewBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
-});
-
-// Copy to clipboard
-copyBtn.addEventListener('click', () => {
-  const name = previewName.textContent;
-  const msg  = previewText.textContent;
-  const full = `Gửi đến ${name},\n\n${msg}\n\n— Với tất cả yêu thương 🌸`;
-
-  navigator.clipboard.writeText(full).then(() => {
-    copyBtn.textContent = '✅ Đã sao chép!';
-    setTimeout(() => (copyBtn.textContent = '📋 Sao Chép Lời Chúc'), 2000);
-  }).catch(() => {
-    // Fallback for older browsers
-    const ta = document.createElement('textarea');
-    ta.value = full;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-    copyBtn.textContent = '✅ Đã sao chép!';
-    setTimeout(() => (copyBtn.textContent = '📋 Sao Chép Lời Chúc'), 2000);
-  });
-});
-
-// Allow Enter in name input to jump to textarea
-toInput.addEventListener('keydown', e => {
-  if (e.key === 'Enter') { e.preventDefault(); msgInput.focus(); }
-});
+    frames++;
+    if (frames < 180) requestAnimationFrame(drawConfetti);
+    else cCtx.clearRect(0, 0, cc.width, cc.height);
+  }
+  drawConfetti();
+}
