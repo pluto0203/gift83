@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chúc Mừng Ngày 8/3 🌸</title>
+  <meta name="description" content="Lời chúc mừng ngày Quốc tế Phụ nữ 8/3 — Tặng những người phụ nữ tuyệt vời nhất!" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nunito:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Floating petals canvas -->
+  <canvas id="petals"></canvas>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <p class="date-badge">08 · 03 · 2025</p>
+      <h1 class="title">
+        Chúc Mừng<br/>
+        <span class="highlight">Ngày 8/3</span>
+      </h1>
+      <p class="subtitle">Quốc Tế Phụ Nữ</p>
+      <p class="tagline">
+        Tặng những người phụ nữ tuyệt vời nhất —<br/>
+        người mẹ, người chị, người bạn, người yêu thương ❤️
+      </p>
+      <a href="#message" class="btn-scroll">
+        Xem lời chúc <span>↓</span>
+      </a>
+    </div>
+
+    <div class="flowers-row">
+      <span class="flower" style="--d:0s">🌸</span>
+      <span class="flower" style="--d:.3s">🌷</span>
+      <span class="flower" style="--d:.6s">🌹</span>
+      <span class="flower" style="--d:.9s">🌺</span>
+      <span class="flower" style="--d:1.2s">🌸</span>
+      <span class="flower" style="--d:1.5s">🌷</span>
+      <span class="flower" style="--d:1.8s">🌸</span>
+    </div>
+  </section>
+
+  <!-- Message Cards -->
+  <section class="message-section" id="message">
+    <h2 class="section-title">💌 Lời Chúc Yêu Thương</h2>
+
+    <div class="cards-grid">
+      <!-- Card 1 -->
+      <div class="card" id="card-mom">
+        <div class="card-icon">👩‍👧</div>
+        <div class="card-label">Cho Mẹ</div>
+        <p class="card-text">
+          Con cảm ơn Mẹ vì tất cả những yêu thương, hy sinh và che chở. Mẹ là điều kỳ diệu nhất trong cuộc đời con. Chúc Mẹ luôn mạnh khoẻ và hạnh phúc! 🌹
+        </p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="card" id="card-sister">
+        <div class="card-icon">👭</div>
+        <div class="card-label">Cho Chị / Em</div>
+        <p class="card-text">
+          Cảm ơn vì luôn bên cạnh trong mọi lúc vui buồn. Chúc chị/em ngày 8/3 rực rỡ như những bông hoa đẹp nhất, luôn tỏa sáng và tự tin! 🌷
+        </p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="card" id="card-friend">
+        <div class="card-icon">🤝</div>
+        <div class="card-label">Cho Bạn Bè</div>
+        <p class="card-text">
+          Cảm ơn vì những kỷ niệm tuyệt vời và những tiếng cười không thể quên. Chúc những người bạn tuyệt vời của mình ngày 8/3 thật vui và ngập tràn hạnh phúc! 🌺
+        </p>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="card featured" id="card-special">
+        <div class="card-icon">💖</div>
+        <div class="card-label">Cho Người Đặc Biệt</div>
+        <p class="card-text">
+          Anh/Em muốn nói rằng em/anh là điều tuyệt vời nhất đã đến trong cuộc sống này. Chúc mừng ngày 8/3 của em/anh, người phụ nữ/người đặc biệt mà anh/em yêu thương nhất! 💕
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Personalised Message -->
+  <section class="custom-section" id="custom">
+    <h2 class="section-title">✍️ Viết Lời Chúc Của Bạn</h2>
+    <div class="custom-card">
+      <div class="custom-form">
+        <input id="to-name" type="text" placeholder="Gửi đến: (tên người nhận)" maxlength="30" />
+        <textarea id="custom-msg" placeholder="Viết lời chúc của bạn tại đây..." rows="4" maxlength="300"></textarea>
+        <button id="generate-btn" class="btn-generate">Tạo Thiệp 🎀</button>
+      </div>
+
+      <div class="card-preview hidden" id="preview-box">
+        <p class="preview-to">Gửi đến <span id="preview-name">—</span>,</p>
+        <p class="preview-msg" id="preview-text"></p>
+        <p class="preview-from">— Với tất cả yêu thương 🌸</p>
+        <button id="copy-btn" class="btn-copy">📋 Sao Chép Lời Chúc</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quote Section -->
+  <section class="quote-section">
+    <blockquote class="quote">
+      "Phụ nữ là những bông hoa đẹp nhất trên khu vườn cuộc đời."
+    </blockquote>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Làm với ❤️ &nbsp;·&nbsp; Chúc Mừng Ngày 8/3 🌸</p>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
