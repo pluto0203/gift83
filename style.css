@@ -16,6 +16,10 @@
   --purple: #a855f7;
   --red: #f43f5e;
   --gold: #f59e0b;
+  --rose: #fbcfe8;
+  /* hồng nhạt gần trắng */
+  --sky: #7dd3fc;
+  /* xanh dương nhạt     */
   --text: #fff5fa;
   --muted: #c4a0bc;
 }
@@ -178,6 +182,14 @@ body.theme-red {
 
 body.theme-gold {
   --accent: var(--gold);
+}
+
+body.theme-rose {
+  --accent: var(--rose);
+}
+
+body.theme-sky {
+  --accent: var(--sky);
 }
 
 .card-screen.hidden {

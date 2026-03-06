@@ -42,9 +42,10 @@ Chúc Mẹ ngày 8/3 thật vui, thật khoẻ! Con yêu Mẹ rất nhiều 🌹
             `Nhân dịp 8/3, chúc bạn Thúy Vi ngày một xinh đẹp, dễ thương, ngày càng có thêm nhiều chàng trai theo đuổi như lửa bám xăng, như răng bám lợi. 😆
 
 Cảm ơn vì đã dành thời gian update drama cũng như kể các câu chuyện thú vị, giúp tui có thêm nhiều niềm vui. Hy vọng bạn làm tốt trong kỳ thi sắp tới và đạt được đúng nguyện vọng mong muốn nhé.
+
 All best wishes for you, keep shining and smiling always 🌹`,
         signature: "Thanh Duy",
-        color: "red",
+        color: "rose",
     },
 
     "k1": {
@@ -55,9 +56,24 @@ All best wishes for you, keep shining and smiling always 🌹`,
             `Nhân dịp 8/3, chúc bạn Thiên Kim nhan sắc quyết liệt thăng hoa, tiền vô ào ào, tình yêu tưng bừng bùng nổ. 😆
 
 Cảm ơn vì đã dành thời gian update drama cũng như kể các câu chuyện thú vị, giúp tui có thêm nhiều niềm vui. Cố gắng chăm chỉ, nỗ lực theo đuổi ước mơ của mình nhé!
+
 All best wishes for you, keep shining and smiling always 🌹`,
         signature: "Thanh Duy",
-        color: "red",
+        color: "sky",
+    },
+
+    "x1": {
+        name: "Khả Kỳ",
+        relation: "International Women's Day",
+        emoji: "🌸",
+        message:
+            `Hôm nay là một ngày đặc biệt của các bạn nữ. Anh gửi em lời chúc tốt lành và may mắn nhất 😆
+
+Chúc em luôn rạng ngời, xinh đẹp, hạnh phúc và bình an. Cố gắng chăm chỉ, nỗ lực theo đuổi ước mơ của mình nhé!
+
+All best wishes for you, keep shining and smiling always 🌹`,
+        signature: "Thanh Duy",
+        color: "sky",
     },
 
     // ── Thêm người tiếp theo vào đây (copy block phía trên) ──

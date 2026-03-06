@@ -83,6 +83,8 @@ function populateCard(d) {
     purple: 'rgba(168,85,247,.3)',
     red: 'rgba(244,63,94,.3)',
     gold: 'rgba(245,158,11,.25)',
+    rose: 'rgba(251,207,232,.25)',
+    sky: 'rgba(125,211,252,.25)',
   };
   document.getElementById('card-glow').style.background =
     `radial-gradient(ellipse 70% 70% at 50% 40%, ${glowColors[theme] || glowColors.pink} 0%, transparent 70%)`;
@@ -142,6 +144,8 @@ function launchConfetti() {
     purple: ['#a855f7', '#d8b4fe', '#e879f9', '#ffffff'],
     red: ['#f43f5e', '#fda4af', '#fb7185', '#ffffff'],
     gold: ['#f59e0b', '#fcd34d', '#fbbf24', '#ffffff'],
+    rose: ['#fbcfe8', '#fce7f3', '#f9a8d4', '#ffffff'],
+    sky: ['#7dd3fc', '#bae6fd', '#38bdf8', '#ffffff'],
   };
   const palette = accents[data?.color || 'pink'];
 
