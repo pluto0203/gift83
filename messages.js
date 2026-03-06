@@ -76,6 +76,20 @@ All best wishes for you, keep shining and smiling always 🌹`,
         color: "sky",
     },
 
+    "t11": {
+        name: "Minh Thư",
+        relation: "International Women's Day",
+        emoji: "🌸",
+        message:
+            `Hôm nay là một ngày đặc biệt của các bạn nữ. Gửi bạn tui những lời chúc tốt lành và may mắn nhất 😆
+
+Chúc bạn tui luôn rạng ngời, xinh đẹp, hạnh phúc và bình an. Cố gắng chăm chỉ, nỗ lực theo đuổi ước mơ lấy chồng giàu của mình nhé!
+
+All best wishes for you, keep shining and smiling always 🌹`,
+        signature: "Thanh Duy",
+        color: "rose",
+    },
+
     // ── Thêm người tiếp theo vào đây (copy block phía trên) ──
     // "ten": {
     //   name:     "...",
