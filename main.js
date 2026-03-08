@@ -198,21 +198,29 @@ function initScratchCard() {
 
   // Set real canvas size resolving DPI blurriness
   const rect = canvas.parentElement.getBoundingClientRect();
-  canvas.width = rect.width;
-  canvas.height = rect.height;
+  const dpr = window.devicePixelRatio || 1;
+
+  canvas.width = rect.width * dpr;
+  canvas.height = rect.height * dpr;
+
+  // Scale down the canvas element via CSS so it fits the wrapper, while having high-res drawing buffer
+  canvas.style.width = `${rect.width}px`;
+  canvas.style.height = `${rect.height}px`;
+
+  ctx.scale(dpr, dpr);
 
   // Fill with silver scratch layer
   ctx.fillStyle = '#b0b0b0';
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.fillRect(0, 0, rect.width, rect.height);
 
   // Add some scratch pattern/text overlay
-  ctx.font = '16px Nunito, sans-serif';
+  ctx.font = 'bold 16px Nunito, sans-serif';
   ctx.fillStyle = '#ffffff';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  ctx.shadowColor = 'rgba(0,0,0,0.2)';
+  ctx.shadowColor = 'rgba(0,0,0,0.3)';
   ctx.shadowBlur = 4;
-  ctx.fillText('Cạo cạo đê 🪙', canvas.width / 2, canvas.height / 2);
+  ctx.fillText('Cào thẻ nhận quà 🪙', rect.width / 2, rect.height / 2);
 
   ctx.shadowBlur = 0; // reset
 
@@ -238,6 +246,7 @@ function initScratchCard() {
     ctx.beginPath();
     ctx.arc(pos.x, pos.y, 20, 0, Math.PI * 2);
     ctx.fill();
+    ctx.globalCompositeOperation = 'source-over'; // restore
 
     checkReveal();
   }
