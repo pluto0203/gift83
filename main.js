@@ -89,14 +89,10 @@ function populateCard(d) {
   document.getElementById('card-glow').style.background =
     `radial-gradient(ellipse 70% 70% at 50% 40%, ${glowColors[theme] || glowColors.pink} 0%, transparent 70%)`;
 
-  // Page title
-  document.title = `🌸 Chúc mừng ngày 8/3 — ${d.name}`;
-
-  // Handle Scratch Card
+  // Handle Scratch Card UI display
   if (d.luckyMoney) {
     document.getElementById('scratch-container').classList.remove('hidden');
     document.getElementById('scratch-reward').textContent = d.luckyMoney;
-    initScratchCard();
   }
 }
 
@@ -131,6 +127,12 @@ envelopeEl.addEventListener('click', () => {
       requestAnimationFrame(() => {
         cardScreen.style.transition = 'opacity .6s ease';
         cardScreen.style.opacity = '1';
+
+        // Now that the card is visible, initialize the scratch card
+        // ensuring canvas gets proper width/height!
+        if (data && data.luckyMoney) {
+          initScratchCard();
+        }
       });
       // Confetti party!
       launchConfetti();
