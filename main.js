@@ -196,8 +196,8 @@ function initScratchCard() {
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
 
-  // Set real canvas size resolving DPI blurriness
-  const rect = canvas.parentElement.getBoundingClientRect();
+  // Use fixed size matching CSS avoiding layout timing issues
+  const rect = { width: 260, height: 80 };
   const dpr = window.devicePixelRatio || 1;
 
   canvas.width = rect.width * dpr;
@@ -232,8 +232,8 @@ function initScratchCard() {
     const clientX = e.touches ? e.touches[0].clientX : e.clientX;
     const clientY = e.touches ? e.touches[0].clientY : e.clientY;
     return {
-      x: clientX - r.left,
-      y: clientY - r.top
+      x: (clientX - r.left) * (rect.width / r.width),
+      y: (clientY - r.top) * (rect.height / r.height)
     };
   }
 
