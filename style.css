@@ -338,9 +338,9 @@ body.theme-sky {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Playfair Display', serif;
-  font-size: 1.4rem;
-  font-weight: 700;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.55rem;
+  font-weight: 800;
   color: #fff;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
   background: radial-gradient(circle at center, var(--accent, var(--pink)) 0%, color-mix(in srgb, var(--accent, var(--pink)) 40%, #000) 100%);
