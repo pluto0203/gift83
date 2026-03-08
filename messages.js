@@ -7,12 +7,13 @@
  *  Link: https://your-site.vercel.app/?to=KEY
  *
  *  Các trường:
- *    name      — Tên hiển thị trên thiệp
- *    relation  — Mối quan hệ (tuỳ bạn đặt)
- *    emoji     — Emoji đại diện
- *    message   — Nội dung lời chúc (xuống dòng dùng \n\n)
- *    signature — Chữ ký của bạn ở cuối
- *    color     — "pink" | "purple" | "red" | "gold"
+ *    name       — Tên hiển thị trên thiệp
+ *    relation   — Mối quan hệ (tuỳ bạn đặt)
+ *    emoji      — Emoji đại diện
+ *    message    — Nội dung lời chúc (xuống dòng dùng \n\n)
+ *    signature  — Chữ ký của bạn ở cuối
+ *    color      — "pink" | "purple" | "red" | "gold" | "rose" | "sky"
+ *    luckyMoney — (Tuỳ chọn) Số tiền/Quà tặng hiện sau lớp thẻ cào
  * =============================================================
  */
 
@@ -32,6 +33,7 @@ Cảm ơn Mẹ vì những buổi sáng sớm lo cho con, những lời động 
 Chúc Mẹ ngày 8/3 thật vui, thật khoẻ! Con yêu Mẹ rất nhiều 🌹`,
         signature: "Con của Mẹ ❤️",
         color: "red",
+        luckyMoney: "500.000 VNĐ",
     },
 
     "v2": {
@@ -92,12 +94,13 @@ All best wishes for you, keep shining and smiling always 🌹`,
 
     // ── Thêm người tiếp theo vào đây (copy block phía trên) ──
     // "ten": {
-    //   name:     "...",
-    //   relation: "...",
-    //   emoji:    "🌸",
-    //   message:  `...`,
-    //   signature:"...",
-    //   color:    "pink",
+    //   name:       "...",
+    //   relation:   "...",
+    //   emoji:      "🌸",
+    //   message:    `...`,
+    //   signature:  "...",
+    //   color:      "pink",
+    //   luckyMoney: "100k Momo",
     // },
 
 };

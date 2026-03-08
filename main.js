@@ -91,6 +91,13 @@ function populateCard(d) {
 
   // Page title
   document.title = `🌸 Chúc mừng ngày 8/3 — ${d.name}`;
+
+  // Handle Scratch Card
+  if (d.luckyMoney) {
+    document.getElementById('scratch-container').classList.remove('hidden');
+    document.getElementById('scratch-reward').textContent = d.luckyMoney;
+    initScratchCard();
+  }
 }
 
 if (data) {
@@ -179,4 +186,88 @@ function launchConfetti() {
     else cCtx.clearRect(0, 0, cc.width, cc.height);
   }
   drawConfetti();
+}
+
+// ─── 6. Scratch Card Logic 🎰 ────────────────────────
+function initScratchCard() {
+  const canvas = document.getElementById('scratch-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  // Set real canvas size resolving DPI blurriness
+  const rect = canvas.parentElement.getBoundingClientRect();
+  canvas.width = rect.width;
+  canvas.height = rect.height;
+
+  // Fill with silver scratch layer
+  ctx.fillStyle = '#b0b0b0';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // Add some scratch pattern/text overlay
+  ctx.font = '16px Nunito, sans-serif';
+  ctx.fillStyle = '#ffffff';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.shadowColor = 'rgba(0,0,0,0.2)';
+  ctx.shadowBlur = 4;
+  ctx.fillText('Cạo cạo đê 🪙', canvas.width / 2, canvas.height / 2);
+
+  ctx.shadowBlur = 0; // reset
+
+  let isDragging = false;
+  let isRevealed = false;
+
+  function getMousePos(e) {
+    const r = canvas.getBoundingClientRect();
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    return {
+      x: clientX - r.left,
+      y: clientY - r.top
+    };
+  }
+
+  function scratch(e) {
+    if (!isDragging || isRevealed) return;
+    e.preventDefault();
+    const pos = getMousePos(e);
+
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.beginPath();
+    ctx.arc(pos.x, pos.y, 20, 0, Math.PI * 2);
+    ctx.fill();
+
+    checkReveal();
+  }
+
+  function checkReveal() {
+    // Check how much is scratched off
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const pixels = imageData.data;
+    let transparentCount = 0;
+
+    for (let i = 3; i < pixels.length; i += 4) {
+      if (pixels[i] === 0) transparentCount++;
+    }
+
+    // If ~40% scratched, reveal the rest
+    if (transparentCount > (pixels.length / 4) * 0.4) {
+      isRevealed = true;
+      canvas.style.transition = 'opacity 0.6s ease';
+      canvas.style.opacity = '0';
+      setTimeout(() => { canvas.style.display = 'none'; }, 600);
+
+      // Fire confetti again as celebration!
+      setTimeout(launchConfetti, 300);
+    }
+  }
+
+  // Events
+  canvas.addEventListener('mousedown', (e) => { isDragging = true; scratch(e); });
+  canvas.addEventListener('mousemove', scratch);
+  window.addEventListener('mouseup', () => { isDragging = false; });
+
+  canvas.addEventListener('touchstart', (e) => { isDragging = true; scratch(e); }, { passive: false });
+  canvas.addEventListener('touchmove', scratch, { passive: false });
+  window.addEventListener('touchend', () => { isDragging = false; });
 }
