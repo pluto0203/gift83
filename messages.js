@@ -94,6 +94,36 @@ All best wishes for you, keep shining and smiling always 🌹`,
         luckyMoney: "37.086 VNĐ",
     },
 
+    "kn1": {
+        name: "Kim Ngân",
+        relation: "International Women's Day",
+        emoji: "🌸",
+        message:
+            `Hôm nay là một ngày đặc biệt của các bạn nữ. Gửi bạn những lời chúc tốt lành và may mắn nhất 😆
+
+Chúc bạn tui luôn rạng ngời, xinh đẹp, hạnh phúc và bình an. Mong rằng tụi mình sẽ luôn vui vẻ, hạnh phúc và bình an. 
+
+All best wishes for you, keep shining and smiling always 💐`,
+        signature: "Thịnh đẹp trai",
+        color: "rose",
+    },
+
+    "n1": {
+        name: "Yến Nhi",
+        relation: "International Women's Day",
+        emoji: "🌸",
+        message:
+            `Chúc nửa kia của thế giới luôn rực rỡ như hoa đầu mùa và tỏa sáng như nắng ban trưa! 
+
+Chúc bạn Lùn ngày 8/3 thật vui vẻ, lúc nào cũng xinh đẹp rạng ngời. Mong bạn luôn tìm thấy niềm vui từ những điều nhỏ bé nhất trong cuộc sống để rạng rỡ như bây giờ. 
+
+Mãi trân trọng và biết ơn mối quan hệ này. Mong rằng tụi mình sẽ luôn vui vẻ và đáng nhớ như bây giờ. 
+
+All best wishes for you, keep shining and smiling always 🌸`,
+        signature: "Thịnh đẹp trai",
+        color: "rose",
+    },
+
     // ── Thêm người tiếp theo vào đây (copy block phía trên) ──
     // "ten": {
     //   name:       "...",
